@@ -54,3 +54,10 @@ Returns a new `Uint8Array` containing the compressed form of `input`. Throws a
 Returns a new `Uint8Array` containing the original bytes. Throws a `TypeError`
 if `input` is not a `Uint8Array`, and an `Error` if the input ends in the middle
 of a run marker.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
